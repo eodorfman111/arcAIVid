@@ -1,0 +1,7 @@
+data/
+outputs/
+models/
+*.mp4
+*.pt
+__pycache__/
+.ipynb_checkpoints/
