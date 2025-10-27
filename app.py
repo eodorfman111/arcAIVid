@@ -48,7 +48,7 @@ def fetch_video_from_url(url:str,dest:Path)->Path|None:
 def process_video(model,video_path,out_dir,sample_every,conf,iou,imgsz,topk=3,progress=None):
     cap=cv2.VideoCapture(str(video_path))
     if not cap.isOpened():return pd.DataFrame()
-    fps=cap.get(cv2.CAP_PROP_FPS)or30.0
+    fps = cap.get(cv2.CAP_PROP_FPS) or 30.0
     frames=int(cap.get(cv2.CAP_PROP_FRAME_COUNT)or0)
     dur=frames/fps if frames>0 else 0
     stem=Path(video_path).stem;img_dir=Path(out_dir)/stem;img_dir.mkdir(parents=True,exist_ok=True)
