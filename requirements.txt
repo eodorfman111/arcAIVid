@@ -1,0 +1,10 @@
+streamlit
+ultralytics
+opencv-python
+matplotlib
+pandas
+reportlab
+jinja2
+plotly
+openpyxl
+gdown
