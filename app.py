@@ -8,17 +8,27 @@ from ultralytics import YOLO
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import ImageReader
 from reportlab.pdfgen import canvas
+import os, urllib.request, urllib.error, sys, subprocess
 
-# --------------------------------------------------
-# Auto-download model from GitHub Release
-# --------------------------------------------------
 MODEL_PATH = Path("models/best.pt")
-MODEL_URL = "https://github.com/eodorfman111/arcAIVid/releases/download/v1.0.0/best.pt"  # <-- replace if needed
+MODEL_URL  = "https://github.com/eodorfman111/arcAIVid/releases/download/v1.0.0/best.pt"
+
+
+def _download_file(url: str, dest: Path):
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        if "drive.google.com" in url:
+            # requires `gdown` in requirements.txt
+            subprocess.check_call([sys.executable, "-m", "gdown", "--fuzzy", url, "-O", str(dest)])
+        else:
+            req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req) as r, open(dest, "wb") as f:
+                f.write(r.read())
+    except Exception as e:
+        raise RuntimeError(f"Model download failed from {url}: {e}")
+
 if not MODEL_PATH.exists():
-    MODEL_PATH.parent.mkdir(parents=True, exist_ok=True)
-    st.info("Downloading model weights ...")
-    urllib.request.urlretrieve(MODEL_URL, MODEL_PATH)
-    st.success("Model downloaded.")
+    _download_file(MODEL_URL, MODEL_PATH)
 
 # --------------------------------------------------
 # Utility functions
