@@ -7,3 +7,5 @@ textColor = "#e5e7eb"
 
 [server]
 maxUploadSize = 5000
+[global]
+developmentMode = false
