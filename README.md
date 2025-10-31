@@ -24,4 +24,17 @@ It is built with **Ultralytics YOLO**, **Streamlit**, and **OpenCV**, and runs e
 
 ---
 
-## 📦 Repository Layout
+
+---
+
+## ⚙️ Local Run (Development Mode)
+Requires **Python 3.12 x64**.
+
+```bash
+cd arcAIVid_app
+py -3.12 -m venv venv
+venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+streamlit run app.py
+
